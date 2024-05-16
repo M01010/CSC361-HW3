@@ -1,11 +1,26 @@
-{% macro form_model(models) %}
+{% macro model_input(models) %}
     <label for="model">Select Model:</label>
-    <select name="model" id="model">
+    <select class="form-select" name="model" id="model">
         {% for model in models %}
             <option value="{{ model }}">{{ model }}</option>
         {% endfor %}
     </select>
-    <br>
+{% endmacro %}
+
+
+{% macro numeric_input(label_text, name) %}
+    <label for="{{ name }}">{{ label_text }}</label>
+    <input class="form-control" type="number" name="{{ name }}" id="{{ name }}" required="required">
+{% endmacro %}
+
+
+{% macro categorical_input(label_text, name, values) %}
+    <label for="{{ name }}">{{ label_text }}</label>
+    <select class="form-select" name="{{ name }}" id="{{ name }}">
+        {% for value in values %}
+            <option value="{{ value }}">{{ value }}</option>
+        {% endfor %}
+    </select>
 {% endmacro %}
 
 {% macro model_results(model, prediction) %}
@@ -14,33 +29,40 @@
     <p>Prediction: {{ prediction }}</p>
 {% endmacro %}
 
-
-{% macro form_numeric(label_text, name) %}
-    <label for="{{ name }}">{{ label_text }}</label>
-    <input type="number" name="{{ name }}" id="{{ name }}">
-    <br>
-{% endmacro %}
-
-
-{% macro form_cat(label_text, name, values) %}
-    <label for="{{ name }}">{{ label_text }}</label>
-    <select name="{{ name }}" id="{{ name }}">
-        {% for value in values %}
-            <option value="{{ value }}">{{ value }}</option>
-        {% endfor %}
-    </select>
-    <br>
-{% endmacro %}
-
 {% macro form_input(column_data, func) %}
     <form action="{{ url_for(func) }}" method="POST">
-        {{ form_model(models) }}
+        {{ model_input(models) }}
         {% for col, values in column_data.cat.items() %}
-            {{ form_cat('Select for '+col, col, values) }}
+            {{ categorical_input('Select for '+col, col, values) }}
         {% endfor %}
         {% for col in column_data.num %}
-            {{ form_numeric('Select for '+col, col) }}
+            {{ numeric_input('Select for '+col, col) }}
         {% endfor %}
-        <input type="submit" value="Submit">
+        <input type="submit" class="btn btn-primary" value="Submit">
     </form>
+{% endmacro %}
+
+
+
+{% macro navbar() %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('classification') }}">Classification</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('clustering') }}">Clustering</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('regression') }}">Regression</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 {% endmacro %}
