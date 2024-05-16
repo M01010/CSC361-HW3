@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification</title>
+</head>
+<body>
+    <h1>Classification Page</h1>
+    <form action="/classification" method="POST" id="classification-form">
+        <label for="model">Select Classification Model:</label>
+        <select name="model" id="model" required>
+            <option value="">Select Model</option>
+            <option value="Logistic Regression">Logistic Regression</option>
+            <option value="K-Nearest Neighbors">K-Nearest Neighbors</option>
+            <!-- Add options for other classification models -->
+        </select>
+        <br><br>
+
+        <!-- Add input fields for numeric data -->
+        <label for="age">Age:</label>
+        <input type="number" name="Age" id="age" step="1" min="0" required>
+        <br><br>
+        <label for="height">Height:</label>
+        <input type="number" name="Height" id="height" step="0.01" min="0" required>
+        <br><br>
+        <label for="weight">Weight:</label>
+        <input type="number" name="Weight" id="weight" step="0.01" min="0" required>
+        <br><br>
+        <label for="FCVC">FCVC:</label>
+        <input type="number" name="FCVC" id="FCVC" step="0.01" min="0" required>
+        <br><br>
+        <label for="NCP">NCP:</label>
+        <input type="number" name="NCP" id="NCP" step="0.01" min="0" required>
+        <br><br>
+        <label for="CH2O">CH2O:</label>
+        <input type="number" name="CH2O" id="CH2O" step="0.01" min="0" required>
+        <br><br>
+        <label for="FAF">FAF:</label>
+        <input type="number" name="FAF" id="FAF" step="0.01" min="0" required>
+        <br><br>
+        <label for="TUE">TUE:</label>
+        <input type="number" name="TUE" id="TUE" step="0.01" min="0" required>
+        <br><br>
+
+        <!-- Add dropdown menus for non-numeric columns -->
+        <label for="family_history">Family History with Overweight:</label>
+        <select name="family_history" id="family_history" required>
+            <option value="">Select Option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <br><br>
+        <label for="FAVC">FAVC:</label>
+        <select name="FAVC" id="FAVC" required>
+            <option value="">Select Option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <br><br>
+        <label for="CAEC">CAEC:</label>
+        <select name="CAEC" id="CAEC" required>
+            <option value="">Select Option</option>
+            <option value="Sometimes">Sometimes</option>
+            <!-- Add options for other non-numeric columns -->
+        </select>
+        <br><br>
+        <label for="SMOKE">SMOKE:</label>
+        <select name="SMOKE" id="SMOKE" required>
+            <option value="">Select Option</option>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+        <br><br>
+        <label for="SCC">SCC:</label>
+        <select name="SCC" id="SCC" required>
+            <option value="">Select Option</option>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+        <br><br>
+        <label for="CALC">CALC:</label>
+        <select name="CALC" id="CALC" required>
+            <option value="">Select Option</option>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+            <!-- Add options for other non-numeric columns -->
+        </select>
+        <br><br>
+        <label for="MTRANS">MTRANS:</label>
+        <select name="MTRANS" id="MTRANS" required>
+            <option value="">Select Option</option>
+            <option value="Automobile">Automobile</option>
+            <option value="Motorbike">Motorbike</option>
+            <option value="Public_Transportation">Public Transportation</option>
+            <!-- Add options for other non-numeric columns -->
+        </select>
+        <br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    <script>
+        // JavaScript to validate the form before submission
+        document.getElementById('classification-form').addEventListener('submit', function(event) {
+            const modelSelect = document.getElementById('model');
+            const ageInput = document.getElementById('age');
+            const heightInput = document.getElementById('height');
+            const weightInput = document.getElementById('weight');
+            const familyHistorySelect = document.getElementById('family_history');
+            const FAVCSelect = document.getElementById('FAVC');
+            const CAECSelect = document.getElementById('CAEC');
+            const SMOKESelect = document.getElementById('SMOKE');
+            const SCCSelect = document.getElementById('SCC');
+            const CALCSelect = document.getElementById('CALC');
+            const MTRANSSelect = document.getElementById('MTRANS');
+
+            if (!modelSelect.value || !ageInput.value || !heightInput.value || !weightInput.value || !familyHistorySelect.value || !FAVCSelect.value || !CAECSelect.value || !SMOKESelect.value || !SCCSelect.value || !CALCSelect.value || !MTRANSSelect.value) {
+                event.preventDefault();
+                alert('Please fill in all fields before submitting the form.');
+            }
+        });
+    </script>
+</body>
+</html>
