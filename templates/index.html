@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
     <h1>Welcome to the Model Prediction App</h1>
     <ul>
         <li><a href="/classification">Classification</a></li>
         <li><a href="/clustering">Clustering</a></li>
         <li><a href="/regression">Regression</a></li>
     </ul>
-</body>
-</html>
+{% endblock %}
+
