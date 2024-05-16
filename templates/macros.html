@@ -29,7 +29,7 @@
     <p>Prediction: {{ prediction }}</p>
 {% endmacro %}
 
-{% macro form_input(column_data, func) %}
+{% macro form_input(column_data, models, func) %}
     <form action="{{ url_for(func) }}" method="POST">
         {{ model_input(models) }}
         {% for col, values in column_data.cat.items() %}
