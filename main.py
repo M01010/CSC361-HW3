@@ -1,8 +1,10 @@
-import numpy as np
 from flask import Flask, render_template, request
-from utils import load_model, get_models
+from utils import load_pickle, get_prediction, load_json
 
 app = Flask(__name__)
+classification_pipelines: dict[str] = load_pickle('notebooks/classification/pipeline_models.pkl')
+classification_encoder = load_pickle('notebooks/classification/encoder.pkl')
+classification_json_data = load_json('notebooks/classification/column_data.json')
 
 
 @app.route('/')
@@ -12,24 +14,18 @@ def index():
 
 @app.get('/classification')
 def classification_get():
-    models = get_models('notebooks/classification/models')
-    print(models)
-    return render_template('classification.html', models=models)
+    return render_template('classification.html',
+                           models=classification_pipelines.keys(),
+                           column_data=classification_json_data
+                           )
 
 
 @app.post('/classification')
 def classification_post():
-    model_name = request.form['model']
-    x_dict = {}
-    for key, value in request.form.items():
-        if key != 'model':
-            x_dict[key] = value
-
-    x = np.array([list(float(i) for i in x_dict.values())])
-    model = load_model(f"notebooks/classification/models/{model_name}")
-    prediction = model.predict(x)
-    print(model, x, prediction)
-    return render_template('classification.html', model=model.__class__.__name__, prediction=prediction)
+    model, y_label = get_prediction(request.form, classification_pipelines, classification_encoder)
+    return render_template('classification.html',
+                           model=model,
+                           prediction=y_label)
 
 
 @app.get('/clustering')

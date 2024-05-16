@@ -1,12 +1,27 @@
-import os
+import json
 import pickle
 
+import pandas as pd
 
-def load_model(path):
+
+def load_pickle(path):
     with open(path, 'rb') as f:
-        model = pickle.load(f)
-    return model
+        return pickle.load(f)
 
 
-def get_models(path):
-    return os.listdir(path)
+def load_json(path):
+    with open(path, 'r') as f:
+        return json.load(f)
+
+
+def get_prediction(form, pipelines, encoder):
+    model_name = form['model']
+
+    x = pd.DataFrame(form, index=[0], columns=list(form.keys()))
+    x.drop('model', axis=1, inplace=True)
+
+    y = pipelines[model_name].predict(x.iloc[0:1])
+
+    y_label = encoder.inverse_transform(y)[0]
+
+    return model_name, y_label

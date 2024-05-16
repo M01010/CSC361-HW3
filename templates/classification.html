@@ -1,35 +1,13 @@
 {% extends "layout.html" %}
-{% from "macros.html" import model_selection_macro with context %}
+{% from "macros.html" import form_input, model_results with context %}
 {% block title %}Classification{% endblock %}
 {% block content %}
     <h1>Classification Page</h1>
-    <form action="{{ url_for('classification_post') }}" method="POST">
-        {{ model_selection_macro(models) }}
-        <br><br>
-        <label for="age">Age:</label>
-        <input type="number" name="age" id="age">
-        <br><br>
-        <label for="height">Height:</label>
-        <input type="number" name="height" id="height" step="0.1">
-        <br><br>
-        <label for="weight">Weight:</label>
-        <input type="number" name="weight" id="weight" step="0.1">
-        <br><br>
-        <label for="FCVC">FCVC:</label>
-        <input type="number" name="FCVC" id="FCVC" step="0.1">
-        <br><br>
-        <label for="NCP">NCP:</label>
-        <input type="number" name="NCP" id="NCP" step="0.1">
-        <br><br>
-        <label for="CH2O">CH2O:</label>
-        <input type="number" name="CH2O" id="CH2O" step="0.1">
-        <br><br>
-        <label for="FAF">FAF:</label>
-        <input type="number" name="FAF" id="FAF" step="0.1">
-        <br><br>
-        <label for="TUE">TUE:</label>
-        <input type="number" name="TUE" id="TUE" step="0.1">
-        <br><br>
-        <input type="submit" value="Submit">
-    </form>
+    {% if column_data %}
+        {{ form_input(column_data, 'classification_post') }}
+    {% elif prediction %}
+        {{ model_results(model, prediction) }}
+    {% else %}
+        nothing
+    {% endif %}
 {% endblock %}
