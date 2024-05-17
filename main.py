@@ -3,9 +3,12 @@ from utils import load_pickle, get_prediction, load_json
 
 app = Flask(__name__)
 
-classification_pipelines: dict[str] = load_pickle('notebooks/classification/files/pipeline_models.pkl')
+classification_pipelines = load_pickle('notebooks/classification/files/pipeline_models.pkl')
 classification_encoder = load_pickle('notebooks/classification/files/encoder.pkl')
 classification_json_data = load_json('notebooks/classification/files/column_data.json')
+
+regression_pipelines = load_pickle('notebooks/regression/files/pipeline_models.pkl')
+regression_json_data = load_json('notebooks/regression/files/column_data.json')
 
 
 @app.route('/')
@@ -33,7 +36,15 @@ def clustering():
 
 @app.route('/regression', methods=['GET', 'POST'])
 def regression():
-    return render_template('regression.html')
+    if request.method == 'GET':
+        return render_template('regression.html',
+                               models=regression_pipelines.keys(),
+                               column_data=regression_json_data)
+    else:
+        model, y = get_prediction(request.form, regression_pipelines)
+        return render_template('regression.html',
+                               model=model,
+                               prediction=y)
 
 
 if __name__ == '__main__':

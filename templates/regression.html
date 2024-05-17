@@ -1,6 +1,13 @@
 {% extends "layout.html" %}
-{% block title %}Index{% endblock %}
+{% from "macros.html" import form_input, model_results with context %}
+{% block title %}Regression{% endblock %}
 {% block content %}
     <h1>Regression Page</h1>
+    {% if column_data %}
+        {{ form_input(column_data, models, 'regression') }}
+    {% elif prediction %}
+        {{ model_results(model, prediction) }}
+    {% else %}
+        nothing
+    {% endif %}
 {% endblock %}
-

@@ -3,9 +3,9 @@
 {% block content %}
     <h1>Welcome to the Model Prediction App</h1>
     <ul>
-        <li><a href="/classification">Classification</a></li>
-        <li><a href="/clustering">Clustering</a></li>
-        <li><a href="/regression">Regression</a></li>
+        <li><a href="{{ url_for('classification') }}">Classification</a></li>
+        <li><a href="{{ url_for('clustering') }}">Clustering</a></li>
+        <li><a href="{{ url_for('regression') }}">Regression</a></li>
     </ul>
 {% endblock %}
 
