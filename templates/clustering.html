@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Clustering Page</h1>
     {% if column_data %}
-        {{ form_input(column_data, models, 'regression') }}
+        {{ form_input(column_data, models, 'clustering') }}
     {% elif prediction %}
         {{ model_results(model, prediction) }}
     {% else %}

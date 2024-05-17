@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from utils import load_pickle, get_prediction, load_json
+from utils import load_pickle, load_json
 
 app = Flask(__name__)
 
@@ -9,6 +10,10 @@ classification_json_data = load_json('notebooks/classification/files/column_data
 
 regression_pipelines = load_pickle('notebooks/regression/files/pipeline_models.pkl')
 regression_json_data = load_json('notebooks/regression/files/column_data.json')
+
+
+clustering_pipelines = load_pickle('notebooks/clustering/files/pipeline_models.pkl')
+clustering_json_data = load_json('notebooks/clustering/files/column_data.json')
 
 
 @app.route('/')
@@ -31,7 +36,16 @@ def classification():
 
 @app.route('/clustering', methods=['GET', 'POST'])
 def clustering():
-    return render_template('clustering.html')
+    if request.method == 'GET':
+        return render_template('clustering.html',
+                               models=clustering_pipelines.keys(),
+                               column_data=clustering_json_data)
+    else:
+        # Assuming perform_clustering is a function that performs clustering based on user input
+        model , clustering_results = get_prediction(request.form, clustering_pipelines)
+        return render_template('clustering.html',
+                               model = model,
+                               prediction=clustering_results)
 
 
 @app.route('/regression', methods=['GET', 'POST'])
@@ -48,4 +62,4 @@ def regression():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
