@@ -1,11 +1,33 @@
-{% extends "layout.html" %}
-{% block title %}Index{% endblock %}
-{% block content %}
-    <h1>Welcome to the Model Prediction App</h1>
-    <ul>
-        <li><a href="{{ url_for('classification') }}">Classification</a></li>
-        <li><a href="{{ url_for('clustering') }}">Clustering</a></li>
-        <li><a href="{{ url_for('regression') }}">Regression</a></li>
-    </ul>
+{% extends "layout.html" %} {% block title %}Index{% endblock %} {% block
+content %}
+<h1>Welcome to the Model Prediction App</h1>
+<ul class="nav flex-column pb-5">
+  <li class="nav-item pt-3">
+    <a
+      class="nav-link bg-light p-2 mb-1 custom-hover"
+      href="{{ url_for('classification') }}"
+      >Classification</a
+    >
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link bg-light p-2 mb-1 custom-hover"
+      href="{{ url_for('clustering') }}"
+      >Clustering</a
+    >
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link bg-light p-2 mb-1 custom-hover"
+      href="{{ url_for('regression') }}"
+      >Regression</a
+    >
+  </li>
+</ul>
+<style>
+  .custom-hover:hover {
+    background-color: #d1d8e0;
+    color: #000;
+  }
+</style>
 {% endblock %}
-
