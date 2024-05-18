@@ -5,7 +5,7 @@
     <h1>Clustering Page</h1>
     {% if column_data %}
         {{ form_input(column_data, models, 'clustering') }}
-    {% elif prediction %}
+    {% elif prediction is not none %}
         {{ model_results(model, prediction) }}
     {% else %}
         nothing

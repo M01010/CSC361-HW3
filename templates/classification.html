@@ -5,7 +5,7 @@
     <h1>Classification Page</h1>
     {% if column_data %}
         {{ form_input(column_data, models, 'classification') }}
-    {% elif prediction %}
+    {% elif prediction is not none %}
         {{ model_results(model, prediction) }}
     {% else %}
         nothing

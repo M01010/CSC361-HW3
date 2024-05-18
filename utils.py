@@ -22,7 +22,7 @@ def get_prediction(form, pipelines, encoder=None):
     y = pipelines[model_name].predict(x.iloc[0:1])
 
     if not encoder:
-        return model_name, y
+        return model_name, y[0]
 
     y_label = encoder.inverse_transform(y)[0]
 

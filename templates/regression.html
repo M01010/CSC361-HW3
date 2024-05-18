@@ -5,7 +5,7 @@
     <h1>Regression Page</h1>
     {% if column_data %}
         {{ form_input(column_data, models, 'regression') }}
-    {% elif prediction %}
+    {% elif prediction is not none %}
         {{ model_results(model, prediction) }}
     {% else %}
         nothing
