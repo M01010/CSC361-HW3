@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from utils import load_pickle, get_prediction, load_json
-from utils import load_pickle, load_json
 
 app = Flask(__name__)
 
